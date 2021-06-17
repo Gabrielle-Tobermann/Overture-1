@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import {
   Button,
@@ -10,12 +11,12 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { createOrder, createOrderItem } from '../helpers/data/ordersData';
 
-function OrderForm() {
+function OrderForm({ setOrders }) {
   const [order, setOrder] = useState({
     fullName: '',
     email: '',
     transactionID: uuidv4(),
-    insurance: 0,
+    insurance: '0',
     userID: firebase.auth().currentUser.uid,
     date: new Date()
   });
@@ -44,11 +45,11 @@ function OrderForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    createOrder(order).then((resp) => console.warn(resp));
-
-    Promise.all(itemInputs.map(async (itemInput) => {
-      await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
-    }));
+    createOrder(order).then((resp) => setOrders(resp)).then(() => {
+      Promise.all(itemInputs.map(async (itemInput) => {
+        await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
+      }));
+    });
   }
 
   const addNewField = () => {
@@ -136,5 +137,9 @@ function OrderForm() {
     </div>
   );
 }
+
+OrderForm.propTypes = {
+  setOrders: PropTypes.func.isRequired
+};
 
 export default OrderForm;

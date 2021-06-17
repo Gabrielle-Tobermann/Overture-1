@@ -34,7 +34,7 @@ function OrderView() {
       </ButtonSearchContainer>
       </TopContainer>
       {adding && <OrderForm
-      setItems={setOrders}
+      setOrders={setOrders}
       />}
         { searchValue === ''
           ? ''
@@ -46,6 +46,7 @@ function OrderView() {
             firebaseKey={item.firebaseKey}
             setOrders={setOrders}
             date={item.date}
+            insurance={item.insurance}
             />
           ))
         }
@@ -58,6 +59,7 @@ function OrderView() {
             firebaseKey={order.firebaseKey}
             setOrders={setOrders}
             date={order.date}
+            insurance={order.insurance}
             />
           ))
         }

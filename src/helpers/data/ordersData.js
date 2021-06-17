@@ -20,7 +20,7 @@ const createOrder = (orderObj) => new Promise((resolve, reject) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbURL}/orders/${response.data.name}.json`, body);
     }).then(() => {
-      getOrders().then((resp) => resolve(resp));
+      getOrders().then((resp) => resolve((resp)));
     }).catch((error) => reject(error));
 });
 
@@ -36,11 +36,20 @@ const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve,
     .then((response) => {
       const body = { firebaseKey: response.data.name, transactionID: orderTransactionID };
       axios.patch(`${dbURL}/orderItems/${response.data.name}.json`, body);
-    }).then(() => {
+    }).then((resp) => resolve(Object.values(resp)))
+    .catch((error) => reject(error));
+});
+
+const createOrderAndOrderItems = (orderTransactionID, items) => new Promise((resolve, reject) => {
+  const order = createOrder();
+  const orderItems = items.map((item) => createOrderItem(item, orderTransactionID));
+
+  Promise.all([order, orderItems])
+    .then(() => {
       getOrders().then((resp) => resolve(resp));
     }).catch((error) => reject(error));
 });
 
 export {
-  getOrders, createOrder, deleteOrder, createOrderItem
+  getOrders, createOrder, deleteOrder, createOrderItem, createOrderAndOrderItems
 };
