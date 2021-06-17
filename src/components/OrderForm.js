@@ -121,16 +121,6 @@ function OrderForm() {
           ))
         }
       </div>
-      {/* <FormGroup>
-        <Label for="amount">Payment Amount:</Label>
-        <Input
-        type="text"
-        name="amount"
-        id="orderAmount"
-        value={order.amount}
-        onChange={(e) => handleInputChange(e, 'order')}
-        />
-      </FormGroup> */}
       <FormGroup>
         <Label for="insurance">Insurance Amount:</Label>
         <Input
