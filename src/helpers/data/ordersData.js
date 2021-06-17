@@ -31,4 +31,16 @@ const deleteOrder = (firebaseKey) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-export { getOrders, createOrder, deleteOrder };
+const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve, reject) => {
+  axios.post(`${dbURL}/orderItems.json`, { itemID: orderItem.itemID })
+    .then((response) => {
+      const body = { firebaseKey: response.data.name, transactionID: orderTransactionID };
+      axios.patch(`${dbURL}/orderItems/${response.data.name}.json`, body);
+    }).then(() => {
+      getOrders().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+export {
+  getOrders, createOrder, deleteOrder, createOrderItem
+};

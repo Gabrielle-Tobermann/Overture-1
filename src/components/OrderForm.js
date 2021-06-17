@@ -8,6 +8,7 @@ import {
   Input
 } from 'reactstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { createOrder, createOrderItem } from '../helpers/data/ordersData';
 
 function OrderForm() {
   const [order, setOrder] = useState({
@@ -15,16 +16,13 @@ function OrderForm() {
     email: '',
     transactionID: uuidv4(),
     insurance: 0,
-    userID: firebase.auth().currentUser.uid
+    userID: firebase.auth().currentUser.uid,
+    date: new Date()
   });
 
   const [itemInputs, setItemInputs] = useState([{
     itemID: '', id: uuidv4()
   }]);
-
-  // const [orderItems, setOrderItems] = useState({
-  //   itemID: '', transactionID: order.transactionID
-  // });
 
   const handleInputChange = (e, hookCase) => {
     switch (hookCase) {
@@ -42,13 +40,16 @@ function OrderForm() {
         break;
       default: console.warn('please select an something');
     }
-    console.warn('order', order);
-    console.warn('itemInput', itemInputs);
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-  };
+    createOrder(order).then((resp) => console.warn(resp));
+
+    Promise.all(itemInputs.map(async (itemInput) => {
+      await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
+    }));
+  }
 
   const addNewField = () => {
     setItemInputs([...itemInputs, { id: uuidv4(), itemID: '' }]);
@@ -87,7 +88,7 @@ function OrderForm() {
         id="fullName"
         placeholder="Enter name"
         value={order.fullName}
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e, 'order')}
         />
       </FormGroup>
       <FormGroup>
@@ -120,7 +121,7 @@ function OrderForm() {
           ))
         }
       </div>
-      <FormGroup>
+      {/* <FormGroup>
         <Label for="amount">Payment Amount:</Label>
         <Input
         type="text"
@@ -129,7 +130,7 @@ function OrderForm() {
         value={order.amount}
         onChange={(e) => handleInputChange(e, 'order')}
         />
-      </FormGroup>
+      </FormGroup> */}
       <FormGroup>
         <Label for="insurance">Insurance Amount:</Label>
         <Input
