@@ -1,12 +1,34 @@
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
-};
+import axios from 'axios';
+import firebaseConfig from '../apiKeys';
 
-export default firebaseConfig;
+const dbURL = firebaseConfig.databaseURL;
+
+const getOrders = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/orders.json`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
+const createOrder = (orderObj) => new Promise((resolve, reject) => {
+  axios.post(`${dbURL}/orders.json`, orderObj)
+    .then((response) => {
+      const body = { firebaseKey: response.data.name };
+      axios.patch(`${dbURL}/orders/${response.data.name}.json`, body);
+    }).then(() => {
+      getOrders().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+const deleteOrder = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbURL}/orders/${firebaseKey}.json`)
+    .then(() => {
+      getOrders().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+export { getOrders, createOrder, deleteOrder };
