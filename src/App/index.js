@@ -7,32 +7,20 @@ import Routes from '../helpers/routes';
 import NavBar from '../components/Navbar';
 import './App.scss';
 import { getItems } from '../helpers/data/itemsData';
+import { getOrders } from '../helpers/data/ordersData';
 
 function App() {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [items, setItems] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
-        // const userObj = {
-        //   fullName: authed.displayName,
-        //   profilePicture: authed.photoURL,
-        //   uid: authed.uid,
-        //   user: authed.email.split('@')[0],
-        //   admin: true
-        // };
         setUser(false);
         setAdmin(true);
       } else if (authed && authed.uid !== process.env.REACT_ADMIN_UID) {
-        // const userObj = {
-        //   fullName: authed.displayName,
-        //   profilePicture: authed.photoURL,
-        //   uid: authed.uid,
-        //   user: authed.email.split('@')[0],
-        //   admin: false
-        // };
         setAdmin(false);
         setUser(true);
       } else if ((admin || admin === null) || (user || user === null)) {
@@ -44,6 +32,10 @@ function App() {
 
   useEffect(() => {
     getItems().then((resp) => setItems(resp));
+  }, []);
+
+  useEffect(() => {
+    getOrders().then((resp) => setOrders(resp));
   }, []);
 
   return (
@@ -58,6 +50,8 @@ function App() {
       admin={admin}
       items={items}
       setItems={setItems}
+      orders={orders}
+      setOrders={setOrders}
       />
     </Router>
     <Footer/>

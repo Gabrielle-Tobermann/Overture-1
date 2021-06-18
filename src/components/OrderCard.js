@@ -16,7 +16,6 @@ function OrderCard({
   email,
   insurance,
   date,
-  userID,
   setOrders
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -42,7 +41,6 @@ function OrderCard({
               <li>{email}</li>
               <li>{insurance}</li>
               <li>{date}</li>
-              <li>Processed by {userID}</li>
               <li>Items do a forEach with price</li>
             </Ulist>
             <ButtonContainer>

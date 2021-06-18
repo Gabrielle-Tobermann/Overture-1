@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import OrderCard from '../components/OrderCard';
 import OrderForm from '../components/OrderForm';
-import { getOrders } from '../helpers/data/ordersData';
 import {
   ButtonSearchContainer, SearchInput, TopContainer, ViewTitle
 } from '../styles/ItemsStyle';
 
-function OrderView() {
-  const [orders, setOrders] = useState([]);
+function OrderView({ orders, setOrders }) {
   const [adding, setAdding] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-
-  useEffect(() => {
-    getOrders().then((resp) => setOrders(resp));
-  }, []);
 
   const handleButtonClick = () => {
     setAdding(true);
@@ -65,5 +60,10 @@ function OrderView() {
     </div>
   );
 }
+
+OrderView.propTypes = {
+  orders: PropTypes.array,
+  setOrders: PropTypes.func
+};
 
 export default OrderView;
