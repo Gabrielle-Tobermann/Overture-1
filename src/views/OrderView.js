@@ -42,6 +42,7 @@ function OrderView({ orders, setOrders }) {
             setOrders={setOrders}
             date={item.date}
             insurance={item.insurance}
+            transactionID={item.transactionID}
             />
           ))
         }
@@ -54,6 +55,7 @@ function OrderView({ orders, setOrders }) {
             setOrders={setOrders}
             date={order.date}
             insurance={order.insurance}
+            transactionID={order.transactionID}
             />
         ))
         }
@@ -63,7 +65,7 @@ function OrderView({ orders, setOrders }) {
 
 OrderView.propTypes = {
   orders: PropTypes.array,
-  setOrders: PropTypes.func
+  setOrders: PropTypes.func,
 };
 
 export default OrderView;

@@ -58,7 +58,9 @@ function Routes({
         admin={admin}
         />
         <PrivateRoute exact path='/orders'
-        component={() => <OrderView orders={orders} setOrders={setOrders}
+        component={() => <OrderView
+          orders={orders}
+          setOrders={setOrders}
         />
         }
         user={user}

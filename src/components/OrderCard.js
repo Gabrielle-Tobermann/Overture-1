@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   Button,
@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { ButtonContainer, Ulist } from '../styles/ItemsStyle';
-import { deleteOrder } from '../helpers/data/ordersData';
+import { deleteOrder, getOrderItems } from '../helpers/data/ordersData';
 
 function OrderCard({
   fullName,
@@ -16,16 +16,36 @@ function OrderCard({
   email,
   insurance,
   date,
-  setOrders
+  setOrders,
+  transactionID
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [orderItems, setOrderItems] = useState([]);
   const toggle = () => setPopoverOpen(!popoverOpen);
+
+  useEffect(() => {
+    getOrderItems().then((resp) => setOrderItems(resp));
+  }, []);
 
   const handleButtonClick = () => {
     deleteOrder(firebaseKey).then((resp) => setOrders(resp));
   };
 
   const dateFormat = () => date.split('T')[0];
+
+  const findOrderItems = () => {
+    let itemID = '';
+    const foundItems = [];
+    orderItems.filter((orderItem) => {
+      if (orderItem.transactionID === transactionID) {
+        itemID = orderItem.itemID;
+        foundItems.push(itemID);
+      }
+      return foundItems;
+    });
+    console.warn(foundItems);
+    return foundItems.map((item, i) => <li key={i}>{item}</li>);
+  };
 
   return (
     <div style={{ width: 'min-content', margin: '2%' }}>
@@ -43,7 +63,7 @@ function OrderCard({
               <li>{email}</li>
               <li>{insurance > 0 ? `insurance: $${insurance} ` : ''}</li>
               <li>{dateFormat()}</li>
-              <li>Items do a forEach with price</li>
+              {findOrderItems()}
             </Ulist>
             <ButtonContainer>
               <Button color="dark" className="rounded-pill" onClick={handleButtonClick}>Delete</Button>
@@ -62,7 +82,9 @@ OrderCard.propTypes = {
   insurance: PropTypes.string,
   date: PropTypes.string,
   userID: PropTypes.string,
-  setOrders: PropTypes.func
+  setOrders: PropTypes.func,
+  items: PropTypes.array,
+  transactionID: PropTypes.string
 };
 
 export default OrderCard;
