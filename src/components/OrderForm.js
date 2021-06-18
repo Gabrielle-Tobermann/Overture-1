@@ -9,7 +9,7 @@ import {
   Input
 } from 'reactstrap';
 import { v4 as uuidv4 } from 'uuid';
-import { createOrder, createOrderItem } from '../helpers/data/ordersData';
+import { createOrderAndOrderItems } from '../helpers/data/ordersData';
 
 function OrderForm({ setOrders }) {
   const [order, setOrder] = useState({
@@ -45,11 +45,12 @@ function OrderForm({ setOrders }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    createOrder(order).then((resp) => setOrders(resp)).then(() => {
-      Promise.all(itemInputs.map(async (itemInput) => {
-        await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
-      }));
-    });
+    // createOrder(order).then((resp) => setOrders(resp)).then(() => {
+    // Promise.all(itemInputs.map(async (itemInput) => {
+    //   await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
+    // }));
+    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => setOrders(resp));
+    console.warn(setOrders);
   }
 
   const addNewField = () => {

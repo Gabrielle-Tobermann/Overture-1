@@ -31,17 +31,25 @@ const deleteOrder = (firebaseKey) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const getOrderItems = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/orderItems.json`)
+    .then((resp) => resolve(Object.values(resp.data)))
+    .catch((error) => reject(error));
+});
+
 const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/orderItems.json`, { itemID: orderItem.itemID })
     .then((response) => {
       const body = { firebaseKey: response.data.name, transactionID: orderTransactionID };
       axios.patch(`${dbURL}/orderItems/${response.data.name}.json`, body);
-    }).then((resp) => resolve(Object.values(resp)))
+    }).then(() => {
+      getOrderItems().then((resp) => resolve(resp));
+    })
     .catch((error) => reject(error));
 });
 
-const createOrderAndOrderItems = (orderTransactionID, items) => new Promise((resolve, reject) => {
-  const order = createOrder();
+const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Promise((resolve, reject) => {
+  const order = createOrder(orderObj);
   const orderItems = items.map((item) => createOrderItem(item, orderTransactionID));
 
   Promise.all([order, orderItems])
@@ -51,5 +59,5 @@ const createOrderAndOrderItems = (orderTransactionID, items) => new Promise((res
 });
 
 export {
-  getOrders, createOrder, deleteOrder, createOrderItem, createOrderAndOrderItems
+  getOrders, createOrder, deleteOrder, createOrderItem, createOrderAndOrderItems, getOrderItems
 };
