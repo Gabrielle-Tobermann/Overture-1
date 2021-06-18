@@ -50,8 +50,7 @@ function OrderView() {
             />
           ))
         }
-        {
-          orders.map((order) => (
+        { orders.length ? orders.map((order) => (
             <OrderCard
             key={order.firebaseKey}
             fullName={order.fullName}
@@ -61,7 +60,8 @@ function OrderView() {
             date={order.date}
             insurance={order.insurance}
             />
-          ))
+        ))
+          : ''
         }
     </div>
   );

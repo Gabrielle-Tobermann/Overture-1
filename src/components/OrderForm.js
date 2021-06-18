@@ -45,12 +45,9 @@ function OrderForm({ setOrders }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // createOrder(order).then((resp) => setOrders(resp)).then(() => {
-    // Promise.all(itemInputs.map(async (itemInput) => {
-    //   await createOrderItem(itemInput, order.transactionID).then((resp) => console.warn('orderItems response', resp));
-    // }));
-    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => setOrders(resp));
-    console.warn(setOrders);
+    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => {
+      setOrders(resp);
+    });
   }
 
   const addNewField = () => {
