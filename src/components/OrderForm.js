@@ -9,7 +9,7 @@ import {
   Input
 } from 'reactstrap';
 import { v4 as uuidv4 } from 'uuid';
-import { createOrderAndOrderItems } from '../helpers/data/ordersData';
+import { createOrderAndOrderItems, getOrders } from '../helpers/data/ordersData';
 
 function OrderForm({ setOrders }) {
   const [order, setOrder] = useState({
@@ -43,12 +43,10 @@ function OrderForm({ setOrders }) {
     }
   };
 
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => {
-      setOrders(resp);
-    });
-  }
+    createOrderAndOrderItems(order.transactionID, itemInputs, order).then(getOrders().then((resp) => setOrders(resp)));
+  };
 
   const addNewField = () => {
     setItemInputs([...itemInputs, { id: uuidv4(), itemID: '' }]);
@@ -77,7 +75,7 @@ function OrderForm({ setOrders }) {
 
   return (
     <div>
-        <Form name="orderForm" method="post">
+        <Form name="orderForm" onSubmit={handleSubmit}>
          <input type="hidden" name="form-name" value="orderForm"/>
        <FormGroup>
         <Label for="fullName">Customer&apos;s Full Name:</Label>
