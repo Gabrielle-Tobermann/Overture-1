@@ -25,6 +25,8 @@ function OrderCard({
     deleteOrder(firebaseKey).then((resp) => setOrders(resp));
   };
 
+  const dateFormat = () => date.split('T')[0];
+
   return (
     <div style={{ width: 'min-content', margin: '2%' }}>
       <Card body style={{ width: 'fit-content', border: 'solid 1px black' }}>
@@ -39,8 +41,8 @@ function OrderCard({
           <PopoverBody>
             <Ulist>
               <li>{email}</li>
-              <li>{insurance}</li>
-              <li>{date}</li>
+              <li>{insurance > 0 ? `insurance: $${insurance} ` : ''}</li>
+              <li>{dateFormat()}</li>
               <li>Items do a forEach with price</li>
             </Ulist>
             <ButtonContainer>
