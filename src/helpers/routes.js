@@ -27,7 +27,9 @@ function Routes({
   user,
   admin,
   items,
-  setItems
+  setItems,
+  orders,
+  setOrders
 }) {
   return (
     <div>
@@ -56,7 +58,13 @@ function Routes({
         admin={admin}
         />
         <PrivateRoute exact path='/orders'
-        component={OrderView}
+        component={() => <OrderView
+          orders={orders}
+          setOrders={setOrders}
+          items={items}
+          setItems={setItems}
+        />
+        }
         user={user}
         admin={admin}
         />
@@ -73,7 +81,9 @@ Routes.propTypes = {
   user: PropTypes.any,
   admin: PropTypes.any,
   items: PropTypes.array,
-  setItems: PropTypes.func
+  setItems: PropTypes.func,
+  orders: PropTypes.array,
+  setOrders: PropTypes.func
 };
 
 export default Routes;
