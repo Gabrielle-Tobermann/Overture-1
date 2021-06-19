@@ -7,7 +7,7 @@ const getUsers = () => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/users.json`)
     .then((resp) => {
       if (resp.data) {
-        resolve(resp.data);
+        resolve(Object.values(resp.data));
       } else {
         resolve([]);
       }

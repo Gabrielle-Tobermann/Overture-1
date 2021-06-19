@@ -19,7 +19,6 @@ function OrderCard({
   date,
   setOrders,
   transactionID,
-  orders,
   userID,
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -34,8 +33,6 @@ function OrderCard({
   useEffect(() => {
     getUsers().then((resp) => setUsers(resp));
   }, []);
-
-  console.warn(users);
 
   const handleButtonClick = () => {
     deleteOrder(firebaseKey).then((resp) => {
@@ -65,9 +62,9 @@ function OrderCard({
 
   const findUser = () => {
     let userName = '';
-    orders.filter((order) => {
-      if (order.userID === userID) {
-        userName = order.fullName;
+    users.filter((user) => {
+      if (user.uid === userID) {
+        userName = user.fullName;
       }
       return userName;
     });

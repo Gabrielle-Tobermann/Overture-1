@@ -45,7 +45,6 @@ function OrderView({ orders, setOrders }) {
             insurance={item.insurance}
             transactionID={item.transactionID}
             userID={item.userID}
-            orders={orders}
             />
           ))
         }
@@ -61,7 +60,6 @@ function OrderView({ orders, setOrders }) {
             insurance={order.insurance}
             transactionID={order.transactionID}
             userID={order.userID}
-            orders={orders}
             />
         ))
         }
