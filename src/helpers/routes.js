@@ -61,6 +61,8 @@ function Routes({
         component={() => <OrderView
           orders={orders}
           setOrders={setOrders}
+          items={items}
+          setItems={setItems}
         />
         }
         user={user}

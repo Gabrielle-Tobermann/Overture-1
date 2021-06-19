@@ -8,7 +8,9 @@ import {
 } from '../styles/ItemsStyle';
 import OrderContainer from '../styles/OrderStyle';
 
-function OrderView({ orders, setOrders }) {
+function OrderView({
+  orders, setOrders, items, setItems
+}) {
   const [adding, setAdding] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
@@ -31,6 +33,8 @@ function OrderView({ orders, setOrders }) {
       </TopContainer>
       {adding && <OrderForm
       setOrders={setOrders}
+      items={items}
+      setItems={setItems}
       />}
         { searchValue === ''
           ? ''
@@ -71,6 +75,8 @@ function OrderView({ orders, setOrders }) {
 OrderView.propTypes = {
   orders: PropTypes.array,
   setOrders: PropTypes.func,
+  items: PropTypes.array,
+  setItems: PropTypes.func
 };
 
 export default OrderView;

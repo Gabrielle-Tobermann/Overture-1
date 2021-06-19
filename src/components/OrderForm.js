@@ -10,11 +10,12 @@ import {
 } from 'reactstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { createOrderAndOrderItems } from '../helpers/data/ordersData';
+import { makeItemUnavailable } from '../helpers/data/itemsData';
 
-function OrderForm({ setOrders }) {
+function OrderForm({ setOrders, items, setItems }) {
   const [order, setOrder] = useState({
-    fullName: 'Gabby' || '',
-    email: 'gabby@gmail.com' || '',
+    fullName: '',
+    email: '',
     transactionID: uuidv4(),
     insurance: '0',
     userID: firebase.auth().currentUser.uid,
@@ -24,6 +25,22 @@ function OrderForm({ setOrders }) {
   const [itemInputs, setItemInputs] = useState([{
     itemID: '', id: uuidv4()
   }]);
+
+  const findItems = (inputedItems) => {
+    const arrInputs = [];
+    items.filter((item) => {
+      inputedItems.forEach((element) => {
+        if (element.itemID === item.itemID) {
+          if (item.available === true) {
+            makeItemUnavailable(item).then((resp) => setItems(resp));
+            arrInputs.push(item);
+          }
+        }
+        return arrInputs;
+      });
+      return arrInputs;
+    });
+  };
 
   const handleInputChange = (e, hookCase) => {
     switch (hookCase) {
@@ -45,6 +62,7 @@ function OrderForm({ setOrders }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    findItems(itemInputs);
     createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => setOrders(resp));
   };
 
@@ -134,7 +152,9 @@ function OrderForm({ setOrders }) {
 }
 
 OrderForm.propTypes = {
-  setOrders: PropTypes.func.isRequired
+  setOrders: PropTypes.func.isRequired,
+  items: PropTypes.array,
+  setItems: PropTypes.func
 };
 
 export default OrderForm;

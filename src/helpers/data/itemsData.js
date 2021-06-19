@@ -39,6 +39,12 @@ const updateItem = (itemObj) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const makeItemUnavailable = (item) => new Promise((resolve, reject) => {
+  axios.patch(`${dbURL}/items/${item.firebaseKey}.json`, { available: false })
+    .then(() => getItems().then((resp) => resolve(resp)))
+    .catch((error) => reject(error));
+});
+
 export {
-  getItems, createItem, deleteItem, updateItem
+  getItems, createItem, deleteItem, updateItem, makeItemUnavailable
 };
