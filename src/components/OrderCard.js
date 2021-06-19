@@ -9,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import { ButtonContainer, Ulist } from '../styles/ItemsStyle';
 import { deleteOrder, deleteOrderItems, getOrderItems } from '../helpers/data/ordersData';
+import getUsers from '../helpers/data/usersData';
 
 function OrderCard({
   fullName,
@@ -18,14 +19,23 @@ function OrderCard({
   date,
   setOrders,
   transactionID,
+  orders,
+  userID,
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const toggle = () => setPopoverOpen(!popoverOpen);
   const [orderItems, setOrderItems] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getOrderItems().then((resp) => setOrderItems(resp));
   }, []);
+
+  useEffect(() => {
+    getUsers().then((resp) => setUsers(resp));
+  }, []);
+
+  console.warn(users);
 
   const handleButtonClick = () => {
     deleteOrder(firebaseKey).then((resp) => {
@@ -53,15 +63,16 @@ function OrderCard({
     return foundItems.map((item, i) => <li key={i}>{item}</li>);
   };
 
-  console.warn({
-    fullName,
-    firebaseKey,
-    email,
-    insurance,
-    date,
-    setOrders,
-    transactionID
-  });
+  const findUser = () => {
+    let userName = '';
+    orders.filter((order) => {
+      if (order.userID === userID) {
+        userName = order.fullName;
+      }
+      return userName;
+    });
+    return <li>Processed by: {userName}</li>;
+  };
 
   return (
     <div style={{ width: 'min-content', margin: '2%' }}>
@@ -80,6 +91,7 @@ function OrderCard({
               <li>{insurance > 0 ? `insurance: $${insurance} ` : ''}</li>
               <li>{dateFormat()}</li>
               {findOrderItems()}
+              {findUser()}
             </Ulist>
             <ButtonContainer>
               <Button color="dark" className="rounded-pill" onClick={handleButtonClick}>Delete</Button>
@@ -101,7 +113,9 @@ OrderCard.propTypes = {
   items: PropTypes.array,
   transactionID: PropTypes.string,
   orderItems: PropTypes.array,
-  setOrderItems: PropTypes.func
+  setOrderItems: PropTypes.func,
+  userID: PropTypes.string,
+  orders: PropTypes.array
 };
 
 export default OrderCard;
