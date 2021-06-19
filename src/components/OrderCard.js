@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { ButtonContainer, Ulist } from '../styles/ItemsStyle';
-import { deleteOrder, getOrderItems } from '../helpers/data/ordersData';
+import { deleteOrder, deleteOrderItems, getOrderItems } from '../helpers/data/ordersData';
 
 function OrderCard({
   fullName,
@@ -17,18 +17,25 @@ function OrderCard({
   insurance,
   date,
   setOrders,
-  transactionID
+  transactionID,
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const [orderItems, setOrderItems] = useState([]);
   const toggle = () => setPopoverOpen(!popoverOpen);
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
     getOrderItems().then((resp) => setOrderItems(resp));
   }, []);
 
   const handleButtonClick = () => {
-    deleteOrder(firebaseKey).then((resp) => setOrders(resp));
+    deleteOrder(firebaseKey).then((resp) => {
+      setOrders(resp);
+      orderItems.forEach((item) => {
+        if (item.transactionID === transactionID) {
+          deleteOrderItems(item).then(() => console.warn(item));
+        }
+      });
+    });
   };
 
   const dateFormat = () => date.split('T')[0];
@@ -83,7 +90,9 @@ OrderCard.propTypes = {
   userID: PropTypes.string,
   setOrders: PropTypes.func,
   items: PropTypes.array,
-  transactionID: PropTypes.string
+  transactionID: PropTypes.string,
+  orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func
 };
 
 export default OrderCard;

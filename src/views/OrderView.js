@@ -18,7 +18,6 @@ function OrderView({ orders, setOrders }) {
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
-    console.warn(searchValue);
   };
 
   return (

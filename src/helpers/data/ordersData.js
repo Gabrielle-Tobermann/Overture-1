@@ -58,6 +58,18 @@ const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Pr
     }).catch((error) => reject(error));
 });
 
+const deleteOrderItems = (orderItem) => new Promise((resolve, reject) => {
+  axios.delete(`${dbURL}/orderItems/${orderItem.firebaseKey}.json`)
+    .then(() => getOrderItems().then((resp) => resolve(resp)))
+    .catch((error) => reject(error));
+});
+
 export {
-  getOrders, createOrder, deleteOrder, createOrderItem, createOrderAndOrderItems, getOrderItems
+  getOrders,
+  createOrder,
+  deleteOrder,
+  createOrderItem,
+  createOrderAndOrderItems,
+  getOrderItems,
+  deleteOrderItems
 };
