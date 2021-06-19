@@ -18,9 +18,10 @@ const createOrder = (orderObj) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/orders.json`, orderObj)
     .then((response) => {
       const body = { firebaseKey: response.data.name };
-      axios.patch(`${dbURL}/orders/${response.data.name}.json`, body);
-    }).then(() => {
-      getOrders().then((resp) => resolve((resp)));
+      axios.patch(`${dbURL}/orders/${response.data.name}.json`, body)
+        .then(() => {
+          getOrders().then((resp) => resolve((resp)));
+        });
     }).catch((error) => reject(error));
 });
 
@@ -41,11 +42,11 @@ const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve,
   axios.post(`${dbURL}/orderItems.json`, { itemID: orderItem.itemID })
     .then((response) => {
       const body = { firebaseKey: response.data.name, transactionID: orderTransactionID };
-      axios.patch(`${dbURL}/orderItems/${response.data.name}.json`, body);
-    }).then(() => {
-      getOrderItems().then((resp) => resolve(resp));
-    })
-    .catch((error) => reject(error));
+      axios.patch(`${dbURL}/orderItems/${response.data.name}.json`, body)
+        .then(() => {
+          getOrderItems().then((resp) => resolve(resp));
+        });
+    }).catch((error) => reject(error));
 });
 
 const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Promise((resolve, reject) => {

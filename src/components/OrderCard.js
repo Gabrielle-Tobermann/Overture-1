@@ -53,6 +53,16 @@ function OrderCard({
     return foundItems.map((item, i) => <li key={i}>{item}</li>);
   };
 
+  console.warn({
+    fullName,
+    firebaseKey,
+    email,
+    insurance,
+    date,
+    setOrders,
+    transactionID
+  });
+
   return (
     <div style={{ width: 'min-content', margin: '2%' }}>
       <Card body style={{ width: 'fit-content', border: 'solid 1px black' }}>
@@ -87,7 +97,6 @@ OrderCard.propTypes = {
   email: PropTypes.string,
   insurance: PropTypes.string,
   date: PropTypes.string,
-  userID: PropTypes.string,
   setOrders: PropTypes.func,
   items: PropTypes.array,
   transactionID: PropTypes.string,

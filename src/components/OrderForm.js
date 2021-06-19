@@ -13,8 +13,8 @@ import { createOrderAndOrderItems } from '../helpers/data/ordersData';
 
 function OrderForm({ setOrders }) {
   const [order, setOrder] = useState({
-    fullName: '',
-    email: '',
+    fullName: 'Gabby' || '',
+    email: 'gabby@gmail.com' || '',
     transactionID: uuidv4(),
     insurance: '0',
     userID: firebase.auth().currentUser.uid,

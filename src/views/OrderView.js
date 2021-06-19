@@ -21,7 +21,7 @@ function OrderView({ orders, setOrders }) {
   };
 
   return (
-    <div>
+    <div style={{ minHeight: '88vh' }}>
       <TopContainer>
         <ViewTitle>Orders</ViewTitle>
         <ButtonSearchContainer>
