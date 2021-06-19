@@ -43,7 +43,6 @@ function OrderCard({
       }
       return foundItems;
     });
-    console.warn(foundItems);
     return foundItems.map((item, i) => <li key={i}>{item}</li>);
   };
 

@@ -6,6 +6,7 @@ import OrderForm from '../components/OrderForm';
 import {
   ButtonSearchContainer, SearchInput, TopContainer, ViewTitle
 } from '../styles/ItemsStyle';
+import OrderContainer from '../styles/OrderStyle';
 
 function OrderView({ orders, setOrders }) {
   const [adding, setAdding] = useState(false);
@@ -17,6 +18,7 @@ function OrderView({ orders, setOrders }) {
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
+    console.warn(searchValue);
   };
 
   return (
@@ -33,7 +35,7 @@ function OrderView({ orders, setOrders }) {
       />}
         { searchValue === ''
           ? ''
-          : orders.filter((order) => order.fullName === 'instrument' && order.fulName.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
+          : orders.filter((order) => order.fullName.toLowerCase().includes(searchValue.toLowerCase())).map((item) => (
           <OrderCard
             key={item.firebaseKey}
             fullName={item.fullName}
@@ -46,6 +48,7 @@ function OrderView({ orders, setOrders }) {
             />
           ))
         }
+        <OrderContainer>
         { orders.map((order) => (
             <OrderCard
             key={order.firebaseKey}
@@ -59,6 +62,7 @@ function OrderView({ orders, setOrders }) {
             />
         ))
         }
+        </OrderContainer>
     </div>
   );
 }
