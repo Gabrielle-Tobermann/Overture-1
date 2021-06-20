@@ -69,7 +69,11 @@ function Routes({
         admin={admin}
         />
         <PrivateRoute exact path='/financial-reports'
-        component={FinancialReportsView}
+        component={() => <FinancialReportsView
+        orders={orders}
+        items={items}
+        />
+      }
         admin={admin}
         />
       </Switch>
