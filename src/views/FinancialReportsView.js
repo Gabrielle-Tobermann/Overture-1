@@ -295,7 +295,6 @@ function FinancialReportsView({ orders, items }) {
         default: console.warn('no items match');
       }
     });
-    debugger;
     setChartData({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
