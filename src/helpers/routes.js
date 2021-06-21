@@ -30,7 +30,8 @@ function Routes({
   setItems,
   orders,
   setOrders,
-  orderItems
+  orderItems,
+  setOrderItems
 }) {
   return (
     <div>
@@ -65,6 +66,7 @@ function Routes({
           items={items}
           setItems={setItems}
           orderItems={orderItems}
+          setOrderItems={setOrderItems}
         />
         }
         user={user}
@@ -91,7 +93,8 @@ Routes.propTypes = {
   setItems: PropTypes.func,
   orders: PropTypes.array,
   setOrders: PropTypes.func,
-  orderItems: PropTypes.array
+  orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func
 };
 
 export default Routes;

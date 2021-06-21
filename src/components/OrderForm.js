@@ -12,7 +12,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { createOrderAndOrderItems } from '../helpers/data/ordersData';
 import { makeItemUnavailable } from '../helpers/data/itemsData';
 
-function OrderForm({ setOrders, items, setItems }) {
+function OrderForm({
+  setOrders,
+  items,
+  setItems,
+  setOrderItems
+}) {
   const [order, setOrder] = useState({
     fullName: '',
     email: '',
@@ -63,7 +68,13 @@ function OrderForm({ setOrders, items, setItems }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     findItems(itemInputs);
-    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => setOrders(resp));
+    createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => {
+      setOrders(resp.order);
+      setOrderItems(resp.orderItems);
+      console.warn('orders', resp.order);
+      console.warn('orderItems', resp.orderItems);
+      console.warn(resp);
+    });
   };
 
   const addNewField = () => {
@@ -154,7 +165,8 @@ function OrderForm({ setOrders, items, setItems }) {
 OrderForm.propTypes = {
   setOrders: PropTypes.func.isRequired,
   items: PropTypes.array,
-  setItems: PropTypes.func
+  setItems: PropTypes.func,
+  setOrderItems: PropTypes.func
 };
 
 export default OrderForm;

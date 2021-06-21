@@ -25,12 +25,7 @@ function OrderCard({
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const toggle = () => setPopoverOpen(!popoverOpen);
-  // const [orderItems, setOrderItems] = useState([]);
   const [users, setUsers] = useState([]);
-
-  // useEffect(() => {
-  //   getOrderItems().then((resp) => setOrderItems(resp));
-  // }, []);
 
   useEffect(() => {
     getUsers().then((resp) => setUsers(resp));

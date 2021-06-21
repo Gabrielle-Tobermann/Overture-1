@@ -181,7 +181,6 @@ function FinancialReportsView({ orders, items, orderItems }) {
             });
           });
           juneFinancials = juneItems.reduce((a, b) => Number(a) + Number(b), 0);
-          debugger;
           console.warn(juneFinancials);
           break;
         case order.date.split('-')[1] === '07':

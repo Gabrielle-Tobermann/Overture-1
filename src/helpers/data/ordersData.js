@@ -54,8 +54,8 @@ const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Pr
   const orderItems = items.map((item) => createOrderItem(item, orderTransactionID));
 
   Promise.all([order, orderItems])
-    .then(() => {
-      getOrders().then((resp) => resolve(resp));
+    .then(([orderResp, orderItemsResp]) => {
+      resolve({ order: orderResp, orderItems: orderItemsResp });
     }).catch((error) => reject(error));
 });
 

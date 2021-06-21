@@ -35,6 +35,7 @@ function OrderView({
       setOrders={setOrders}
       items={items}
       setItems={setItems}
+      setOrderItems={setOrderItems}
       />}
         { searchValue === ''
           ? ''
