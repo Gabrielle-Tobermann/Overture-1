@@ -29,7 +29,8 @@ function Routes({
   items,
   setItems,
   orders,
-  setOrders
+  setOrders,
+  orderItems
 }) {
   return (
     <div>
@@ -63,6 +64,7 @@ function Routes({
           setOrders={setOrders}
           items={items}
           setItems={setItems}
+          orderItems={orderItems}
         />
         }
         user={user}
@@ -72,6 +74,7 @@ function Routes({
         component={() => <FinancialReportsView
         orders={orders}
         items={items}
+        orderItems={orderItems}
         />
       }
         admin={admin}
@@ -87,7 +90,8 @@ Routes.propTypes = {
   items: PropTypes.array,
   setItems: PropTypes.func,
   orders: PropTypes.array,
-  setOrders: PropTypes.func
+  setOrders: PropTypes.func,
+  orderItems: PropTypes.array
 };
 
 export default Routes;

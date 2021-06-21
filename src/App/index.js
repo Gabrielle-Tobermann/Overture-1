@@ -7,13 +7,14 @@ import Routes from '../helpers/routes';
 import NavBar from '../components/Navbar';
 import './App.scss';
 import { getItems } from '../helpers/data/itemsData';
-import { getOrders } from '../helpers/data/ordersData';
+import { getOrderItems, getOrders } from '../helpers/data/ordersData';
 
 function App() {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -38,6 +39,10 @@ function App() {
     getOrders().then((resp) => setOrders(resp));
   }, []);
 
+  useEffect(() => {
+    getOrderItems().then((resp) => setOrderItems(resp));
+  }, []);
+
   return (
     <div className='App'>
     <Router>
@@ -52,6 +57,8 @@ function App() {
       setItems={setItems}
       orders={orders}
       setOrders={setOrders}
+      orderItems={orderItems}
+      setOrderItems={setOrderItems}
       />
     </Router>
     <Footer/>

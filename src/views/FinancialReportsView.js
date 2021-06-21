@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import { getOrderItems } from '../helpers/data/ordersData';
+// import { getOrderItems } from '../helpers/data/ordersData';
 
-function FinancialReportsView({ orders, items }) {
-  const [orderItems, setOrderItems] = useState([]);
+function FinancialReportsView({ orders, items, orderItems }) {
+  // const [orderItems, setOrderItems] = useState([]);
   const [chartData, setChartData] = useState({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [
       {
         label: 'Revenue',
-        data: [100, 320, 450, 130, 500, 600, 300, 350, 240, 450, 450, 200],
+        data: [200, 320, 450, 130, 500, 600, 300, 350, 240, 450, 450, 200],
         backgroundColor: ['rgba(75, 192, 192, 0.6)'],
         borderWidth: 4
       }
     ]
   });
 
-  useEffect(() => {
-    getOrderItems().then((resp) => setOrderItems(resp));
-  }, []);
+  // useEffect(() => {
+  //   getOrderItems().then((resp) => setOrderItems(resp));
+  // }, []);
 
   const janItems = [];
   const janOrderItems = [];
@@ -163,7 +163,6 @@ function FinancialReportsView({ orders, items }) {
             });
           });
           mayFinancials = mayItems.reduce((a, b) => Number(a) + Number(b), 0);
-          console.warn('mayFinancials', mayFinancials);
           break;
         case order.date.split('-')[1] === '06':
           juneOrders.push(order);
@@ -182,6 +181,7 @@ function FinancialReportsView({ orders, items }) {
             });
           });
           juneFinancials = juneItems.reduce((a, b) => Number(a) + Number(b), 0);
+          debugger;
           console.warn(juneFinancials);
           break;
         case order.date.split('-')[1] === '07':
@@ -321,7 +321,8 @@ function FinancialReportsView({ orders, items }) {
 
 FinancialReportsView.propTypes = {
   orders: PropTypes.array,
-  items: PropTypes.array
+  items: PropTypes.array,
+  orderItems: PropTypes.array
 };
 
 export default FinancialReportsView;
