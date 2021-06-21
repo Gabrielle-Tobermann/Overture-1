@@ -163,6 +163,7 @@ function FinancialReportsView({ orders, items }) {
             });
           });
           mayFinancials = mayItems.reduce((a, b) => Number(a) + Number(b), 0);
+          console.warn('mayFinancials', mayFinancials);
           break;
         case order.date.split('-')[1] === '06':
           juneOrders.push(order);
@@ -294,6 +295,7 @@ function FinancialReportsView({ orders, items }) {
         default: console.warn('no items match');
       }
     });
+    debugger;
     setChartData({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
@@ -307,7 +309,7 @@ function FinancialReportsView({ orders, items }) {
     });
   }, []);
 
-  console.warn('augFinancials', augFinancials);
+  console.warn('julyFinancials', julyFinancials);
   return (
     <div>
       <h1>Financial Reports</h1>
