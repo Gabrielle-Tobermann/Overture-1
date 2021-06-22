@@ -8,7 +8,7 @@ import RentalChart from '../components/RentalChart';
 function FinancialReportsView({ orders, items, orderItems }) {
   return (
     <div>
-      <h1>Financial Reports</h1>
+      <h1 style={{ padding: '4%' }}>Financial Reports</h1>
       <div>
         <PurchaseChart
         orders={orders}
