@@ -37,6 +37,7 @@ function ItemCard({
         break;
       case 'Edit':
         setEditing(!editing);
+        setPopoverOpen(!popoverOpen);
         break;
       default:
         console.warn('Nothing was selected');
