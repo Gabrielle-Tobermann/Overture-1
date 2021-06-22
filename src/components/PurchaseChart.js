@@ -107,7 +107,7 @@ function PurchaseChart({ orders, orderItems, items }) {
           marchOrders.push(order);
           orderItems.forEach((orderItem) => {
             marchOrders.forEach((marchOrder) => {
-              if (orderItem.transactionID === marchOrder.transactionID) {
+              if ((orderItem.transactionID === marchOrder.transactionID) && (marchOrderItems.indexOf(orderItem) === -1)) {
                 marchOrderItems.push(orderItem);
               }
             });
@@ -119,6 +119,7 @@ function PurchaseChart({ orders, orderItems, items }) {
               }
             });
           });
+          debugger;
           marchFinancials = marchItems.reduce((a, b) => Number(a) + Number(b), 0);
           break;
         case order.date.split('-')[1] === '04':
