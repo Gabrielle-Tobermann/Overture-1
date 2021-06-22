@@ -83,7 +83,6 @@ function RentalChart({ orders, orderItems, items }) {
               }
             });
           });
-          console.warn('janOrders', janOrders);
           janFinancials = janItems.reduce((a, b) => Number(a) + Number(b), 0);
           break;
         case order.date.split('-')[1] === '02':

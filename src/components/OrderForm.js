@@ -71,8 +71,6 @@ function OrderForm({
     createOrderAndOrderItems(order.transactionID, itemInputs, order).then((resp) => {
       setOrders(resp.order);
       setOrderItems(resp.orderItems);
-      console.warn('resp.order', resp.order);
-      console.warn('resp.orderItems', resp.orderItems);
     });
   };
 

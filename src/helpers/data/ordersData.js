@@ -53,7 +53,8 @@ const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Pr
   const order = createOrder(orderObj);
   const orderItems = items.map((item) => createOrderItem(item, orderTransactionID));
 
-  Promise.all([order, orderItems])
+  const orderItemsPromise = Promise.all(orderItems).then(([resp]) => resp);
+  Promise.all([order, orderItemsPromise])
     .then(([orderResp, orderItemsResp]) => {
       resolve({ order: orderResp, orderItems: orderItemsResp });
     }).catch((error) => reject(error));
