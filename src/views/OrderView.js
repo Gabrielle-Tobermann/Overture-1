@@ -9,7 +9,7 @@ import {
 import OrderContainer from '../styles/OrderStyle';
 
 function OrderView({
-  orders, setOrders, items, setItems
+  orders, setOrders, items, setItems, orderItems, setOrderItems
 }) {
   const [adding, setAdding] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -35,6 +35,7 @@ function OrderView({
       setOrders={setOrders}
       items={items}
       setItems={setItems}
+      setOrderItems={setOrderItems}
       />}
         { searchValue === ''
           ? ''
@@ -49,6 +50,8 @@ function OrderView({
             insurance={item.insurance}
             transactionID={item.transactionID}
             userID={item.userID}
+            orderItems={orderItems}
+            setOrderItems={setOrderItems}
             />
           ))
         }
@@ -64,6 +67,8 @@ function OrderView({
             insurance={order.insurance}
             transactionID={order.transactionID}
             userID={order.userID}
+            orderItems={orderItems}
+            setOrderItems={setOrderItems}
             />
         ))
         }
@@ -76,7 +81,9 @@ OrderView.propTypes = {
   orders: PropTypes.array,
   setOrders: PropTypes.func,
   items: PropTypes.array,
-  setItems: PropTypes.func
+  setItems: PropTypes.func,
+  orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func
 };
 
 export default OrderView;

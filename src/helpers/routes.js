@@ -29,7 +29,9 @@ function Routes({
   items,
   setItems,
   orders,
-  setOrders
+  setOrders,
+  orderItems,
+  setOrderItems
 }) {
   return (
     <div>
@@ -63,13 +65,20 @@ function Routes({
           setOrders={setOrders}
           items={items}
           setItems={setItems}
+          orderItems={orderItems}
+          setOrderItems={setOrderItems}
         />
         }
         user={user}
         admin={admin}
         />
         <PrivateRoute exact path='/financial-reports'
-        component={FinancialReportsView}
+        component={() => <FinancialReportsView
+        orders={orders}
+        items={items}
+        orderItems={orderItems}
+        />
+      }
         admin={admin}
         />
       </Switch>
@@ -83,7 +92,9 @@ Routes.propTypes = {
   items: PropTypes.array,
   setItems: PropTypes.func,
   orders: PropTypes.array,
-  setOrders: PropTypes.func
+  setOrders: PropTypes.func,
+  orderItems: PropTypes.array,
+  setOrderItems: PropTypes.func
 };
 
 export default Routes;

@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { ButtonContainer, Ulist } from '../styles/ItemsStyle';
-import { deleteOrder, deleteOrderItems, getOrderItems } from '../helpers/data/ordersData';
+import { deleteOrder, deleteOrderItems } from '../helpers/data/ordersData';
 import getUsers from '../helpers/data/usersData';
 
 function OrderCard({
@@ -20,15 +20,12 @@ function OrderCard({
   setOrders,
   transactionID,
   userID,
+  orderItems,
+  setOrderItems
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const toggle = () => setPopoverOpen(!popoverOpen);
-  const [orderItems, setOrderItems] = useState([]);
   const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    getOrderItems().then((resp) => setOrderItems(resp));
-  }, []);
 
   useEffect(() => {
     getUsers().then((resp) => setUsers(resp));
@@ -39,7 +36,7 @@ function OrderCard({
       setOrders(resp);
       orderItems.forEach((item) => {
         if (item.transactionID === transactionID) {
-          deleteOrderItems(item).then(() => console.warn(item));
+          deleteOrderItems(item).then((response) => setOrderItems(response));
         }
       });
     });
@@ -112,7 +109,7 @@ OrderCard.propTypes = {
   orderItems: PropTypes.array,
   setOrderItems: PropTypes.func,
   userID: PropTypes.string,
-  orders: PropTypes.array
+  orders: PropTypes.array,
 };
 
 export default OrderCard;
