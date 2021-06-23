@@ -157,13 +157,13 @@ function ItemForm({
       </FormGroup>
       <FormGroup>
         <Label check>
-          <Input type="checkbox" name="rental" value={item.rental} onChange={handleInputChange}/>
+          <Input type="checkbox" name="rental" checked={item.rental} onChange={handleInputChange}/>
           Rental?
         </Label>
         </FormGroup>
         <FormGroup check>
         <Label check>
-          <Input type="checkbox" name="available" value={item.available} onChange={handleInputChange}/>
+          <Input type="checkbox" name="available" checked={item.available} onChange={handleInputChange}/>
           Available?
         </Label>
         </FormGroup>
