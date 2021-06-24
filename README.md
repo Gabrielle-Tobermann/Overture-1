@@ -14,8 +14,20 @@ This app will allow a violin shop owner and their employees to keep track of the
 - A bow view where users/admin can view, create, delete bows.
 - A financial reports view where the admin can visualize their revenue through charts. Those charts update when a new order is created. 
 
-## Wireframe 
 
+## Loom 
+https://www.loom.com/share/f460162f5338491792790097a87acf43
+
+## Screenshots
+![overture-3](https://user-images.githubusercontent.com/76187279/123342154-d97f6880-d514-11eb-9cd6-76506e8326fb.png)
+![overture-2](https://user-images.githubusercontent.com/76187279/123342157-d97f6880-d514-11eb-839b-e5767d49c91b.png)
+![overture-1](https://user-images.githubusercontent.com/76187279/123342159-d97f6880-d514-11eb-972a-74d243996164.png)
+![overture-5](https://user-images.githubusercontent.com/76187279/123342161-da17ff00-d514-11eb-9510-225f9cfa15d2.png)
+![overture-4](https://user-images.githubusercontent.com/76187279/123342162-da17ff00-d514-11eb-8311-2187d81ad899.png)
+
+
+## Wireframe 
+https://www.figma.com/file/m559biWxFK2CleVPh4298G/Overture?node-id=0%3A1
 
 ## Contributor
 Gabrielle Tobermann https://github.com/Gabrielle-Tobermann
