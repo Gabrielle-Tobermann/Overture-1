@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import {
-  Button,
   Form,
   FormGroup,
-  Label,
-  Input
 } from 'reactstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { createOrderAndOrderItems } from '../helpers/data/ordersData';
 import { makeItemUnavailable } from '../helpers/data/itemsData';
+import {
+  FormContainer,
+  StyledButton,
+  StyledInput,
+  StyledLabel,
+  Wrapper
+} from '../styles/FormStyle';
+import { AddButton } from '../styles/ItemsStyle';
 
 function OrderForm({
   setOrders,
@@ -100,11 +105,12 @@ function OrderForm({
   };
 
   return (
-    <div>
+    <Wrapper>
+    <FormContainer>
         <Form name="orderForm" onSubmit={handleSubmit}>
        <FormGroup>
-        <Label for="fullName">Customer&apos;s Full Name:</Label>
-        <Input
+        <StyledLabel for="fullName">Customer&apos;s Full Name</StyledLabel>
+        <StyledInput
         type="text"
         name="fullName"
         id="fullName"
@@ -114,8 +120,8 @@ function OrderForm({
         />
       </FormGroup>
       <FormGroup>
-        <Label for="email">Customer&apos;s Email:</Label>
-        <Input
+        <StyledLabel for="email">Customer&apos;s Email</StyledLabel>
+        <StyledInput
         type="email"
         name="email"
         id="email"
@@ -128,8 +134,8 @@ function OrderForm({
           itemInputs.map((item) => (
             <div key={item.id}>
               <FormGroup>
-              <Label for="item">Item</Label>
-              <Input type="text"
+              <StyledLabel for="item">Item</StyledLabel>
+              <StyledInput type="text"
               name="itemID"
               id={item.id}
               placeholder="Enter item ID"
@@ -137,15 +143,15 @@ function OrderForm({
               onChange={(e) => handleItemInputChange(item.id, e)}
               />
               </FormGroup>
-              <Button onClick={addNewField}>+</Button>
-              <Button onClick={removeField}>-</Button>
+              <StyledButton onClick={addNewField}>+</StyledButton>
+              <StyledButton onClick={removeField}>-</StyledButton>
             </div>
           ))
         }
       </div>
       <FormGroup>
-        <Label for="insurance">Insurance Amount:</Label>
-        <Input
+        <StyledLabel for="insurance">Insurance Amount</StyledLabel>
+        <StyledInput
         type="text"
         name="insurance"
         id="insurance"
@@ -153,9 +159,10 @@ function OrderForm({
         onChange={(e) => handleInputChange(e, 'order')}
         />
       </FormGroup>
-      <Button type="submit" onClick={handleSubmit}>Submit</Button>
+      <AddButton type="submit" onClick={handleSubmit}>Submit</AddButton>
       </Form>
-    </div>
+    </FormContainer>
+    </Wrapper>
   );
 }
 

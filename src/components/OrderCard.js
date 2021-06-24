@@ -7,7 +7,7 @@ import {
   PopoverBody
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { ButtonContainer, Ulist } from '../styles/ItemsStyle';
+import { ButtonContainer, Lilist, Ulist } from '../styles/ItemsStyle';
 import { deleteOrder, deleteOrderItems } from '../helpers/data/ordersData';
 import getUsers from '../helpers/data/usersData';
 
@@ -81,9 +81,9 @@ function OrderCard({
           <PopoverHeader>{fullName}</PopoverHeader>
           <PopoverBody>
             <Ulist>
-              <li>{email}</li>
-              <li>{insurance > 0 ? `insurance: $${insurance} ` : ''}</li>
-              <li>{dateFormat()}</li>
+              <Lilist>{email}</Lilist>
+              <Lilist>{insurance > 0 ? `insurance: $${insurance} ` : ''}</Lilist>
+              <Lilist>{dateFormat()}</Lilist>
               {findOrderItems()}
               {findUser()}
             </Ulist>

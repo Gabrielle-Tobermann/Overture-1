@@ -7,7 +7,12 @@ import {
   PopoverHeader,
   PopoverBody
 } from 'reactstrap';
-import { ButtonContainer, PopImage, Ulist } from '../styles/ItemsStyle';
+import {
+  ButtonContainer,
+  Lilist,
+  PopImage,
+  Ulist
+} from '../styles/ItemsStyle';
 import { deleteItem } from '../helpers/data/itemsData';
 import ItemForm from './ItemForm';
 
@@ -27,6 +32,18 @@ function ItemCard({
 }) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [editing, setEditing] = useState(false);
+  let itemStyle = {
+    border: 'black solid 1px',
+    width: 'fit-content'
+  };
+
+  if (available === false) {
+    itemStyle = {
+      border: 'black solid 1px',
+      width: 'fit-content',
+      backgroundColor: '#ABABAB',
+    };
+  }
 
   const toggle = () => setPopoverOpen(!popoverOpen);
 
@@ -46,7 +63,7 @@ function ItemCard({
 
   return (
     <div style={{ width: 'min-content', margin: '2%' }}>
-        <Card body style={{ width: 'fit-content', border: 'solid 1px black' }}>
+        <Card body style={itemStyle}>
           <button className='cardButton' id={itemID}>{itemID}</button>
           <Popover
             placement="right"
@@ -58,14 +75,14 @@ function ItemCard({
             <PopoverBody>
               <Ulist>
                <PopImage src={image}/>
-               <li>{type}</li>
-               <li>{size}</li>
+               <Lilist>{type}</Lilist>
+               <Lilist>{size}</Lilist>
                {
-                <li>{material}</li>
+                <Lilist>{material}</Lilist>
                }
-               <li>{rental ? 'rental' : 'purchase'}</li>
-               <li>${price}</li>
-               <li>{available ? 'Available' : 'Not available'}</li>
+               <Lilist>{rental ? 'rental' : 'purchase'}</Lilist>
+               <Lilist>${price}</Lilist>
+               <Lilist>{available ? 'Available' : 'Unvailable'}</Lilist>
               </Ulist>
               <ButtonContainer>
                 <Button color="dark" className="rounded-pill" onClick={() => handleButtonClick('Edit')}>Edit</Button>
@@ -88,6 +105,7 @@ function ItemCard({
                 rental={rental}
                 size={size}
                 type={type}
+                editing={editing}
                 />
     }
     </div>
