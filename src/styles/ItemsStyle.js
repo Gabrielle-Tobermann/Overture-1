@@ -63,7 +63,7 @@ const Ulist = styled.ul`
 const SearchInput = styled.input`
   height: fit-content;
   jusitfy-self: flex-end;
-  width: 45%;
+  width: 60%;
   border: solid 1px #C0BFBF;
   margin-left: 5%;
 `;

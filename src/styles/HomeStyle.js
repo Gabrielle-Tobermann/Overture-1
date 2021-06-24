@@ -12,7 +12,6 @@ const WholeContainer = styled.div`
   height: 100vh;
   background-size: 100%;
   background-image: url(https://user-images.githubusercontent.com/76187279/123041502-00c22280-d3bb-11eb-8b47-2e5ca16b3029.png);
-
 `;
 
 const H1 = styled.h1`
