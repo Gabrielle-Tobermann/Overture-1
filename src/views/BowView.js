@@ -139,7 +139,7 @@ function BowView({ items, setItems }) {
           </InstrumentCard>
         </CardContainer>
         <CardContainer>
-          <InstrumentTitle>Double Basses</InstrumentTitle>
+          <InstrumentTitle>Double Bass Bows</InstrumentTitle>
           <InstrumentCard>
       {
         items.map((item) => (
