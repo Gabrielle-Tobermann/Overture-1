@@ -37,16 +37,6 @@ const H3 = styled.h3`
   color: white;
 `;
 
-// const textAppearance = keyframes`
-// from {
-//   transform: scale(0.25)
-//   opcaity: 0
-// }
-// to {
-//   transform: scale(1)
-//   opacity: 1;
-// }`;
-
 export {
   H2Container, WholeContainer, H1, H2, H3
 };
