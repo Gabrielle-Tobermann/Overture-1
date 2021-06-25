@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import ItemCard from '../components/ItemCard';
 import ItemForm from '../components/ItemForm';
 import {
@@ -11,7 +10,8 @@ import {
   ViewTitle,
   WholeCardContainer,
   SearchInput,
-  TopContainer
+  TopContainer,
+  AddButton
 } from '../styles/ItemsStyle';
 
 function InstrumentView({ items, setItems }) {
@@ -31,7 +31,7 @@ function InstrumentView({ items, setItems }) {
       <TopContainer>
         <ViewTitle>Instrument Inventory</ViewTitle>
       <ButtonSearchContainer>
-        <Button color="dark" style={{ fontSize: '20px', fontWeight: 'bold' }} onClick={handleButtonClick}>+</Button>
+        <AddButton onClick={handleButtonClick}>+</AddButton>
         <SearchInput placeholder='Search' value={searchTerm} onChange={handleSearchChange}></SearchInput>
       </ButtonSearchContainer>
       </TopContainer>

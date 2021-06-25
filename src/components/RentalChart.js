@@ -348,10 +348,13 @@ function RentalChart({ orders, orderItems, items }) {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center'
+    }}>
       <div style={{
         width: '65%',
-        height: 'auto'
+        height: 'auto',
+        margin: '10%'
       }}>
         <Bar data={chartData} options={{ responsive: true }}/>
       </div>

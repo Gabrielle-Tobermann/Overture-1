@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Form,
   FormGroup,
-  Label,
-  Input
 } from 'reactstrap';
 import { createItem, updateItem } from '../helpers/data/itemsData';
+import {
+  StyledInput, StyledLabel, Wrapper
+} from '../styles/FormStyle';
+import { AddButton } from '../styles/ItemsStyle';
 
 function ItemForm({
   setItems,
@@ -21,7 +22,8 @@ function ItemForm({
   price,
   rental,
   size,
-  type
+  type,
+  editing
 }) {
   const [elementID, setElementID] = useState('');
   const [item, setItem] = useState({
@@ -36,6 +38,18 @@ function ItemForm({
     image: image || '',
     firebaseKey: firebaseKey || null
   });
+
+  let FormContainerStyle = {
+    width: '70%',
+    marginTop: '4%'
+  };
+
+  if (editing === true) {
+    FormContainerStyle = {
+      width: '35vh',
+      marginTop: '4%'
+    };
+  }
 
   const defineID = () => {
     const cellos = items.filter((element) => element.type === 'cello' && element.itemType === 'instrument');
@@ -124,53 +138,53 @@ function ItemForm({
   };
 
   return (
-    <>
-    <div>
+    <Wrapper>
+    <div style={FormContainerStyle}>
      <Form>
       <FormGroup>
-        <Label for="itemType">Item Type:</Label>
-        <Input type="text" name="itemType" id="itemType" placeholder="Instrument or bow" onChange={handleInputChange}/>
+        <StyledLabel for="itemType">Item Type</StyledLabel>
+        <StyledInput type="text" name="itemType" id="itemType" placeholder="Instrument or bow" onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="itemPrice">Price:</Label>
-        <Input type="text" name="price" id="itemPrice" placeholder="Price" value={item.price} onChange={handleInputChange}/>
+        <StyledLabel for="itemPrice">Price</StyledLabel>
+        <StyledInput type="text" name="price" id="itemPrice" placeholder="Price" value={item.price} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="itemSize">Size:</Label>
-        <Input type="text" name="size" id="itemSize" placeholder="Size" value={item.size} onChange={handleInputChange}/>
+        <StyledLabel for="itemSize">Size</StyledLabel>
+        <StyledInput type="text" name="size" id="itemSize" placeholder="Size" value={item.size} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="type">Type:</Label>
-        <Input type="text" name="type" id="type" placeholder="violin, viola, cello, double bass" value={item.type} onChange={handleInputChange}/>
+        <StyledLabel for="type">Type</StyledLabel>
+        <StyledInput type="text" name="type" id="type" placeholder="violin, viola, cello, double bass" value={item.type} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="item">Picture:</Label>
-        <Input type="url" name="image" id="itemImage" placeholder="Enter link to picture" value={item.image} onChange={handleInputChange}/>
+        <StyledLabel for="item">Picture</StyledLabel>
+        <StyledInput type="url" name="image" id="itemImage" placeholder="Enter link to picture" value={item.image} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="itemMaterial">Material:</Label>
-        <Input type="text" name="material" id="itemMaterial" placeholder="Material" value={item.material} onChange={handleInputChange}/>
+        <StyledLabel for="itemMaterial">Material</StyledLabel>
+        <StyledInput type="text" name="material" id="itemMaterial" placeholder="Material" value={item.material} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label for="itemID">Item ID:</Label>
-        <Input type="text" name="itemID" id="itemID" value={item.firebaseKey ? itemID : elementID} onChange={handleInputChange}/>
+        <StyledLabel for="itemID">Item ID</StyledLabel>
+        <StyledInput type="text" name="itemID" id="itemID" value={item.firebaseKey ? itemID : elementID} onChange={handleInputChange}/>
       </FormGroup>
       <FormGroup>
-        <Label check>
-          <Input type="checkbox" name="rental" checked={item.rental} onChange={handleInputChange}/>
+        <StyledLabel check>
+          <StyledInput type="checkbox" name="rental" checked={item.rental} onChange={handleInputChange}/>
           Rental?
-        </Label>
+        </StyledLabel>
         </FormGroup>
         <FormGroup check>
-        <Label check>
-          <Input type="checkbox" name="available" checked={item.available} onChange={handleInputChange}/>
+        <StyledLabel check>
+          <StyledInput type="checkbox" name="available" checked={item.available} onChange={handleInputChange}/>
           Available?
-        </Label>
+        </StyledLabel>
         </FormGroup>
-        <Button onClick={handleSubmit} type="submit">Submit</Button>
+        <AddButton onClick={handleSubmit} type="submit">Submit</AddButton>
       </Form>
     </div>
-    </>
+    </Wrapper>
   );
 }
 
@@ -186,7 +200,8 @@ ItemForm.propTypes = {
   price: PropTypes.string,
   rental: PropTypes.bool,
   size: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  editing: PropTypes.bool
 };
 
 export default ItemForm;

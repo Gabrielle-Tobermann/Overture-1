@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import OrderCard from '../components/OrderCard';
 import OrderForm from '../components/OrderForm';
 import {
+  AddButton,
   ButtonSearchContainer, SearchInput, TopContainer, ViewTitle
 } from '../styles/ItemsStyle';
 import OrderContainer from '../styles/OrderStyle';
@@ -27,7 +27,7 @@ function OrderView({
       <TopContainer>
         <ViewTitle>Orders</ViewTitle>
         <ButtonSearchContainer>
-        <Button color="dark" style={{ fontSize: '20px', fontWeight: 'bold' }} onClick={handleButtonClick}>+</Button>
+        <AddButton onClick={handleButtonClick}>+</AddButton>
         <SearchInput placeholder='Search' value={searchValue} onChange={handleSearchChange}></SearchInput>
       </ButtonSearchContainer>
       </TopContainer>

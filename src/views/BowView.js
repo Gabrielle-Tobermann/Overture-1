@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import ItemCard from '../components/ItemCard';
 import ItemForm from '../components/ItemForm';
 import {
@@ -11,7 +10,8 @@ import {
   ViewTitle,
   TopContainer,
   ButtonSearchContainer,
-  SearchInput
+  SearchInput,
+  AddButton
 } from '../styles/ItemsStyle';
 
 function BowView({ items, setItems }) {
@@ -31,7 +31,7 @@ function BowView({ items, setItems }) {
        <TopContainer>
         <ViewTitle>Bow Inventory</ViewTitle>
       <ButtonSearchContainer>
-        <Button color="dark" style={{ fontSize: '20px', fontWeight: 'bold' }} onClick={handleButtonClick}>+</Button>
+        <AddButton onClick={handleButtonClick}>+</AddButton>
         <SearchInput placeholder='Search' value={searchTerm} onChange={handleSearchChange}></SearchInput>
       </ButtonSearchContainer>
       </TopContainer>
@@ -139,7 +139,7 @@ function BowView({ items, setItems }) {
           </InstrumentCard>
         </CardContainer>
         <CardContainer>
-          <InstrumentTitle>Double Basses</InstrumentTitle>
+          <InstrumentTitle>Double Bass Bows</InstrumentTitle>
           <InstrumentCard>
       {
         items.map((item) => (

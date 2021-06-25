@@ -1,3 +1,4 @@
+import { Button, Input } from 'reactstrap';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
@@ -36,10 +37,11 @@ const ViewTitle = styled.h1`
   width: 50%;
 `;
 
-const AddButton = styled.button`
+const AddButton = styled(Button)`
   background-color: black;
-  border-radius: 50%;
-  font-size: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  border-color: black;
 `;
 
 const PopImage = styled.img`
@@ -55,16 +57,23 @@ const ButtonContainer = styled.div`
 
 const Ulist = styled.ul`
   list-style-type: none;
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
   padding-left: 0;
 `;
 
-const SearchInput = styled.input`
+const Lilist = styled.li`
+  padding-top: 1%;
+  padding-bottom: 1%;
+  font-weight: bolder;
+  font-family: 'Quicksand', sans-serif;
+`;
+
+const SearchInput = styled(Input)`
   height: fit-content;
   jusitfy-self: flex-end;
-  width: 45%;
-  border: solid 1px #C0BFBF;
+  width: 60%;
+  border: solid 1px #686868;
   margin-left: 5%;
 `;
 
@@ -94,5 +103,6 @@ export {
   Ulist,
   SearchInput,
   ButtonSearchContainer,
-  TopContainer
+  TopContainer,
+  Lilist
 };
