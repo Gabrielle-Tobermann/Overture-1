@@ -32,12 +32,14 @@ const deleteOrder = (firebaseKey) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+// The items included in an order are in a seperate table in firebase.
 const getOrderItems = () => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/orderItems.json`)
     .then((resp) => resolve(Object.values(resp.data)))
     .catch((error) => reject(error));
 });
 
+// creating new items for a particular order. Patching the transactionID of an order to keep track of which order the items belong to.
 const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/orderItems.json`, { itemID: orderItem.itemID })
     .then((response) => {
@@ -49,6 +51,8 @@ const createOrderItem = (orderItem, orderTransactionID) => new Promise((resolve,
     }).catch((error) => reject(error));
 });
 
+// Creating an order and the orderItems table simultaneously.
+// promise will need the transactionID from the order, the items inputed by user, and the rest of the order information.
 const createOrderAndOrderItems = (orderTransactionID, items, orderObj) => new Promise((resolve, reject) => {
   const order = createOrder(orderObj);
   const orderItems = items.map((item) => createOrderItem(item, orderTransactionID));

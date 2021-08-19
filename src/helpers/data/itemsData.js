@@ -3,6 +3,7 @@ import firebaseConfig from '../apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
+// promise to get all the items (bows and instruments from firebase)
 const getItems = () => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/items.json`)
     .then((response) => {
@@ -14,6 +15,7 @@ const getItems = () => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+// promise to create a new item in firebase + adding the forebase key as a property
 const createItem = (itemObj) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/items.json`, itemObj)
     .then((response) => {
@@ -32,6 +34,7 @@ const deleteItem = (firebaseKey) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+// Updating an item based on the firebaseKey
 const updateItem = (itemObj) => new Promise((resolve, reject) => {
   axios.patch(`${dbURL}/items/${itemObj.firebaseKey}.json`, itemObj)
     .then(() => {
@@ -39,6 +42,7 @@ const updateItem = (itemObj) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+// promise to change the available property of an item to false
 const makeItemUnavailable = (item) => new Promise((resolve, reject) => {
   axios.patch(`${dbURL}/items/${item.firebaseKey}.json`, { available: false })
     .then(() => getItems().then((resp) => resolve(resp)))
