@@ -7,6 +7,7 @@ import FinancialReportsView from '../views/FinancialReportsView';
 import InstrumentView from '../views/InstrumentView';
 import OrderView from '../views/OrderView';
 
+// setting up private routing based on the user and admin props
 const PrivateRoute = ({
   component: Component, user, admin, ...rest
 }) => {

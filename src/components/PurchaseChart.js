@@ -20,26 +20,31 @@ function PurchaseChart({ orders, orderItems, items }) {
   const janOrders = [];
   let janItemsPrice = [];
   let janFinancials = 0;
+
   const febItems = [];
   const febOrderItems = [];
   let febFinancials = 0;
   const febOrders = [];
   let febItemsPrice = [];
+
   const marchItems = [];
   const marchOrderItems = [];
   const marchOrders = [];
   let marchItemsPrice = [];
   let marchFinancials = 0;
+
   const apItems = [];
   const apOrderItems = [];
   const apOrders = [];
   let apItemsPrice = [];
   let apFinancials = 0;
+
   const mayItems = [];
   const mayOrderItems = [];
   const mayOrders = [];
   let mayItemsPrice = [];
   let mayFinancials = 0;
+
   const juneItems = [];
   const juneOrderItems = [];
   const juneOrders = [];
@@ -50,26 +55,31 @@ function PurchaseChart({ orders, orderItems, items }) {
   const julyOrders = [];
   let julyItemsPrice = [];
   let julyFinancials = 0;
+
   const augItems = [];
   const augOrderItems = [];
   const augOrders = [];
   let augItemsPrice = [];
   let augFinancials = 0;
+
   const sepItems = [];
   const sepOrderItems = [];
   const sepOrders = [];
   let sepItemsPrice = [];
   let sepFinancials = 0;
+
   const octItems = [];
   const octOrderItems = [];
   const octOrders = [];
   let octItemsPrice = [];
   let octFinancials = 0;
+
   const novItems = [];
   const novOrderItems = [];
   const novOrders = [];
   let novItemsPrice = [];
   let novFinancials = 0;
+
   const decItems = [];
   const decOrderItems = [];
   const decOrders = [];
@@ -79,12 +89,15 @@ function PurchaseChart({ orders, orderItems, items }) {
   useEffect(() => {
     orders.forEach((order) => {
       switch (true) {
+        // each case for the switch statement evaluates the date of the order
         case order.date.split('-')[1] === '01':
+          // if order doesn't already exist in the array of january orders, add it
           if (janOrders.indexOf(order) === -1) {
             janOrders.push(order);
           }
           orderItems.forEach((orderItem) => {
             janOrders.forEach((janOrder) => {
+              // if the transactionID of the orderItems matches the transactionID of an existing january order AND those items don't already exist in the items array for january, add them.
               if ((orderItem.transactionID === janOrder.transactionID) && (janOrderItems.indexOf(orderItem) === -1)) {
                 janOrderItems.push(orderItem);
               }
@@ -92,6 +105,7 @@ function PurchaseChart({ orders, orderItems, items }) {
           });
           items.forEach((item) => {
             janOrderItems.forEach((janOrderItem) => {
+              // if items in the January order items match an ID of a bow or instrument for purchase AND they don't already exist in the array of items for January, add them.
               if ((janOrderItem.itemID === item.itemID) && (item.rental === false) && (janItems.indexOf(item) === -1)) {
                 janItems.push(item);
               }

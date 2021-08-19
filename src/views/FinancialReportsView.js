@@ -1,9 +1,7 @@
 import React from 'react';
-// import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 import PurchaseChart from '../components/PurchaseChart';
 import RentalChart from '../components/RentalChart';
-// import { getOrderItems } from '../helpers/data/ordersData';
 
 function FinancialReportsView({ orders, items, orderItems }) {
   return (
