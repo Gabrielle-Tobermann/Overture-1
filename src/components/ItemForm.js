@@ -51,9 +51,13 @@ function ItemForm({
     };
   }
 
+  // Creating a new ID based on the type of instrument + existing IDs
   const defineID = () => {
+    // Filtering by type of item (instrument or bow) and by item type (violin, cello etc)
     const cellos = items.filter((element) => element.type === 'cello' && element.itemType === 'instrument');
+    // Once it's filtered by item type, creating a new array with just the IDs.
     const celloIDs = cellos.map((element) => element.itemID.split('C')[1]);
+    // Creating a new ID based on the last one in the array. If there are no IDs for this instrument, ID starts at 1.
     const celloID = celloIDs.length ? `C${Number(celloIDs[(celloIDs.length - 1)]) + 1}` : 'C1';
 
     const violins = items.filter((element) => element.type === 'violin' && element.itemType === 'instrument');
